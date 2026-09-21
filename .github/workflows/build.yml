@@ -21,24 +21,28 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v5
 
       - name: Setup GitHub Pages
-        uses: actions/configure-pages@v6
+        uses: actions/configure-pages@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v5
         with:
           node-version: 24
+          cache: npm
 
-      - name: Install dependencies
-        run: npm install --no-audit --no-fund
+      # Vite 8 requires esbuild >= 0.27.
+      # The original package.json specified esbuild ^0.25.0,
+      # which causes npm ERESOLVE with Vite 8.
+      - name: Fix esbuild version
+        run: npm install --save-dev esbuild@^0.28.2 --no-audit --no-fund
 
-      - name: Build Vite app
+      - name: Build
         run: npm run build -- --base=./
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v5
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./dist
 
@@ -53,4 +57,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@v4
