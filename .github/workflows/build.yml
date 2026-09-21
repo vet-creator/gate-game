@@ -30,13 +30,9 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: 24
-          cache: npm
 
-      # Vite 8 requires esbuild >= 0.27.
-      # The original package.json specified esbuild ^0.25.0,
-      # which causes npm ERESOLVE with Vite 8.
-      - name: Fix esbuild version
-        run: npm install --save-dev esbuild@^0.28.2 --no-audit --no-fund
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
 
       - name: Build
         run: npm run build -- --base=./
