@@ -1,0 +1,6 @@
+{
+  "name": "LUMEN - Logic Circuit Puzzle",
+  "description": "A minimalist logic gate tree puzzle game. Toggle input switches to propagate boolean signals and illuminate the apex core.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
